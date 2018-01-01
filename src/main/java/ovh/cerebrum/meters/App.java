@@ -1,4 +1,6 @@
-import static spark.Spark.*;
+package ovh.cerebrum.meters;
+
+import static spark.Spark.get;
 
 public class App {
 
