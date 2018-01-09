@@ -22,7 +22,8 @@ public class App {
 
     private void run(){
         initializeDagger();
-        System.out.println("config = " + applicationComponent.getConfig().getString("foo.bar"));
+        //System.out.println("config = " + applicationComponent.getConfig().getString("foo.bar"));
+        //applicationComponent.getUserDao().createUser("test","test", "test");
         get("/hello", (req, res) -> "Hello world");
     }
 
