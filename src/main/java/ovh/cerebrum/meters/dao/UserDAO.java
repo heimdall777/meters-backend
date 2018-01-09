@@ -2,7 +2,9 @@ package ovh.cerebrum.meters.dao;
 
 import ovh.cerebrum.meters.domain.User;
 
+import java.util.Optional;
+
 public interface UserDAO {
 
-    User createUser(String username, String password, String email);
+    Optional<User> createUser(User user);
 }

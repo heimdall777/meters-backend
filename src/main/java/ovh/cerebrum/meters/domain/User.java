@@ -1,23 +1,23 @@
 package ovh.cerebrum.meters.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 public class User {
 
     private Long id;
 
+    @NonNull
     private String username;
 
+    @NonNull
     private String password;
 
+    @NonNull
     private String email;
-
-    private LocalDateTime created_at;
 }
