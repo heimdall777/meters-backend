@@ -1,0 +1,7 @@
+{
+  "db": {
+    "url": "url",
+    "username": "user",
+    "password": "pass"
+  }
+}
