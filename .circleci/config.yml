@@ -39,3 +39,10 @@ jobs:
 
       # run tests!
       - run: mvn integration-test
+
+      - store_test_results:
+          path: target/surefire-reports
+
+      - run:
+          name: Send to CodeCov.io
+          command: bash <(curl -s https://codecov.io/bash) -t 1d3607d1-1037-4620-b1e9-7d9e6558d73f

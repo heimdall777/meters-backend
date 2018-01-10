@@ -2,6 +2,8 @@
 
 **Continuous Integration:** [![CircleCI](https://circleci.com/gh/heimdall777/meters-backend/tree/master.svg?style=svg)](https://circleci.com/gh/heimdall777/meters-backend/tree/master)
 
+**Code coverage:** [![codecov](https://codecov.io/gh/heimdall777/meters-backend/branch/master/graph/badge.svg)](https://codecov.io/gh/heimdall777/meters-backend)
+
 The following is a custom example of how to create REST API using spark java [Spark Java Framework](http://sparkjava.com/).
 In this project I will implement security, logging, database support and docker to show you complete server side application.
 
