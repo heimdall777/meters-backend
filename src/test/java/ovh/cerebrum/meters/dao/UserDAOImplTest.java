@@ -10,6 +10,9 @@ import org.sql2o.Sql2o;
 import ovh.cerebrum.meters.domain.User;
 import ovh.cerebrum.meters.extension.MockitoExtension;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -19,9 +22,9 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class UserDAOImplTest {
 
-    public static final String USERNAME = "username";
-    public static final String PASSWORD = "password";
-    public static final String EMAIL = "email@email.com";
+    private static final String USERNAME = "username";
+    private static final String PASSWORD = "password";
+    private static final String EMAIL = "email@email.com";
     private UserDAO userDAO;
 
     @Mock
@@ -37,15 +40,16 @@ class UserDAOImplTest {
     void init() {
         userDAO = new UserDAOImpl(sql2o);
         when(sql2o.beginTransaction()).thenReturn(connection);
+        when(sql2o.open()).thenReturn(connection);
         when(connection.createQuery(anyString())).thenReturn(query);
         when(query.addParameter(anyString(), anyString())).thenReturn(query);
         when(query.executeUpdate()).thenReturn(connection);
-        when(connection.getKey(Long.class)).thenReturn(1L);
     }
 
     @Test
-    void givenValidUser_whenSaveUser_thenSucceed() {
+    void shouldReturnValidUserWhenSaveSuccess() {
         // Given
+        when(connection.getKey(Long.class)).thenReturn(1L);
         User user = new User(USERNAME, PASSWORD, EMAIL);
 
         // When
@@ -54,5 +58,82 @@ class UserDAOImplTest {
         // Then
         assertThat(createdUser).isPresent().hasValue(user);
     }
+
+    @Test
+    void shouldReturnEmptyOptionalWhenSaveFailed() {
+        // Given
+        when(connection.getKey(Long.class)).thenReturn(null);
+        User user = new User(USERNAME, PASSWORD, EMAIL);
+
+        // When
+        Optional<User> createdUser = userDAO.createUser(user);
+
+        // Then
+        assertThat(createdUser).isEmpty();
+    }
+
+    @Test
+    void shouldReturnEmptyOptionalWhenNoRecordInDatabase() {
+        // Given
+        when(query.executeAndFetch(User.class)).thenReturn(null);
+
+        // When
+        Optional<List<User>> results = userDAO.getAllUsers();
+
+        // Then
+        assertThat(results).isEmpty();
+    }
+
+    @Test
+    void shouldReturnOptionalWithListWhenRecordsInDatabase() {
+        // Given
+        List<User> users = new ArrayList<>();
+        User user = new User(USERNAME, PASSWORD, EMAIL);
+        users.add(user);
+
+        when(query.executeAndFetch(User.class)).thenReturn(users);
+
+        // When
+        Optional<List<User>> results = userDAO.getAllUsers();
+
+        // Then
+        assertThat(results).satisfies(u -> {
+           assertThat(u).isPresent();
+           assertThat(u.get()).hasSize(1);
+        });
+    }
+
+    @Test
+    void shouldReturnEmptyOptionalWhenNoUserWithGivenId() {
+        // Given
+        Long id = 1L;
+        when(query.addParameter("id", id)).thenReturn(query);
+        when(query.executeAndFetch(User.class)).thenReturn(null);
+
+        // When
+        Optional<User> result = userDAO.findUserById(id);
+
+        // Then
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    void shouldReturnOptionalUserWhenUserWithId() {
+        // Given
+        Long id = 1L;
+        User user = new User(USERNAME, PASSWORD, EMAIL);
+        when(query.addParameter("id", id)).thenReturn(query);
+        when(query.executeAndFetch(User.class)).thenReturn(Arrays.asList(user));
+
+        // When
+        Optional<User> result = userDAO.findUserById(id);
+
+        // Then
+        assertThat(result).satisfies(u -> {
+            assertThat(u).isPresent();
+            assertThat(u).hasValue(user);
+        });
+    }
+
 
 }
