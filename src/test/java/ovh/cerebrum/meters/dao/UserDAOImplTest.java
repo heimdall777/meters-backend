@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
@@ -42,6 +43,7 @@ class UserDAOImplTest {
         when(sql2o.beginTransaction()).thenReturn(connection);
         when(sql2o.open()).thenReturn(connection);
         when(connection.createQuery(anyString())).thenReturn(query);
+        when(connection.createQuery(anyString(), anyBoolean())).thenReturn(query);
         when(query.addParameter(anyString(), anyString())).thenReturn(query);
         when(query.executeUpdate()).thenReturn(connection);
     }

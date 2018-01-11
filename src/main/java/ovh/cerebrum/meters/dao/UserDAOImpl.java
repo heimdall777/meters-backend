@@ -24,7 +24,7 @@ public class UserDAOImpl implements UserDAO {
         log.debug("Creating new user.");
 
         try (Connection conn = sql2o.beginTransaction()) {
-            Long id = conn.createQuery("INSERT INTO users(username, password, email) VALUES(:username, :password, :email)")
+            Long id = conn.createQuery("INSERT INTO users(username, password, email) VALUES(:username, :password, :email)", true)
                     .addParameter("username", user.getUsername())
                     .addParameter("password", user.getPassword())
                     .addParameter("email", user.getEmail())
