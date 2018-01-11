@@ -37,9 +37,6 @@ class UserDAOImplTest {
     @Mock
     private Query query;
 
-    @Mock
-    private UserDAO updateUserDAO;
-
     @BeforeEach
     void init() {
         userDAO = new UserDAOImpl(sql2o);
