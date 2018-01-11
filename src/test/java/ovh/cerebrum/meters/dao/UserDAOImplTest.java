@@ -52,13 +52,17 @@ class UserDAOImplTest {
     void shouldReturnValidUserWhenSaveSuccess() {
         // Given
         when(connection.getKey(Long.class)).thenReturn(1L);
-        User user = new User(USERNAME, PASSWORD, EMAIL);
+        User user = new User();
+        user.setEmail(EMAIL);
+        user.setPassword(PASSWORD);
+        user.setUsername(USERNAME);
 
         // When
         Optional<User> createdUser = userDAO.createUser(user);
 
         // Then
         assertThat(createdUser).isPresent().hasValue(user);
+        assertThat(createdUser.get().getId()).isEqualTo(1L);
     }
 
     @Test
