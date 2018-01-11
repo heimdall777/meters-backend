@@ -31,9 +31,12 @@ public class UserDAOImpl implements UserDAO {
                     .executeUpdate()
                     .getKey(Long.class);
 
+            conn.commit();
+
             if (id == null) {
                 return Optional.empty();
             } else {
+                log.debug("User created with id: " + id);
                 user.setId(id);
                 return Optional.of(user);
             }
@@ -74,6 +77,8 @@ public class UserDAOImpl implements UserDAO {
                    .addParameter("password", user.getPassword())
                    .addParameter("email", user.getEmail())
                    .executeUpdate();
+
+           conn.commit();
         }
     }
 
