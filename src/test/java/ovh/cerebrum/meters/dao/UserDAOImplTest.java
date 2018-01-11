@@ -18,7 +18,7 @@ import java.util.Optional;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.ArgumentMatchers.anyBoolean;
 import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserDAOImplTest {
@@ -36,6 +36,9 @@ class UserDAOImplTest {
 
     @Mock
     private Query query;
+
+    @Mock
+    private UserDAO updateUserDAO;
 
     @BeforeEach
     void init() {
@@ -135,6 +138,20 @@ class UserDAOImplTest {
             assertThat(u).isPresent();
             assertThat(u).hasValue(user);
         });
+    }
+
+    @Test
+    void shouldUpdateUserWhenValid() {
+        // Given
+        User user = new User(USERNAME, PASSWORD, EMAIL);
+
+        // When
+        userDAO.updateUser(user);
+
+        //Then
+        verify(connection, times(1)).createQuery(anyString());
+        verify(query, times(3)).addParameter(anyString(), anyString());
+        verify(query,  times(1)).executeUpdate();
     }
 
 
