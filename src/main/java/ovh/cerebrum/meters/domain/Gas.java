@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @Data
 @NoArgsConstructor
 @RequiredArgsConstructor
-public class Gas {
+public class Gas implements MeterEntity {
 
     private Long id;
 

@@ -7,6 +7,7 @@ import org.mockito.Mock;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
+import ovh.cerebrum.meters.dao.impl.UserDAOImpl;
 import ovh.cerebrum.meters.domain.User;
 import ovh.cerebrum.meters.extension.MockitoExtension;
 
@@ -144,8 +145,11 @@ class UserDAOImplTest {
     @Test
     void shouldUpdateUserWhenValid() {
         // Given
-        User user = new User(USERNAME, PASSWORD, EMAIL);
+        Long id = 1L;
+        when(query.addParameter("id", id)).thenReturn(query);
 
+        User user = new User(USERNAME, PASSWORD, EMAIL);
+        user.setId(id);
         // When
         userDAO.update(user);
 

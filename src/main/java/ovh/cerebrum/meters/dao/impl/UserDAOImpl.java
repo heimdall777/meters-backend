@@ -1,8 +1,9 @@
-package ovh.cerebrum.meters.dao;
+package ovh.cerebrum.meters.dao.impl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.sql2o.Connection;
 import org.sql2o.Sql2o;
+import ovh.cerebrum.meters.dao.UserDAO;
 import ovh.cerebrum.meters.domain.User;
 
 import javax.inject.Inject;
@@ -76,6 +77,7 @@ public class UserDAOImpl implements UserDAO {
                    .addParameter("username", user.getUsername())
                    .addParameter("password", user.getPassword())
                    .addParameter("email", user.getEmail())
+                   .addParameter("id", user.getId())
                    .executeUpdate();
 
            conn.commit();
