@@ -1,4 +1,4 @@
-package ovh.cerebrum.meters.dao;
+package ovh.cerebrum.meters.dao.impl;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,7 @@ import org.mockito.Mock;
 import org.sql2o.Connection;
 import org.sql2o.Query;
 import org.sql2o.Sql2o;
-import ovh.cerebrum.meters.dao.impl.UserDAOImpl;
+import ovh.cerebrum.meters.dao.UserDAO;
 import ovh.cerebrum.meters.domain.User;
 import ovh.cerebrum.meters.extension.MockitoExtension;
 

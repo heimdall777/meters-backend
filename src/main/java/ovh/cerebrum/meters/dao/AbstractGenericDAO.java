@@ -46,12 +46,11 @@ public abstract class AbstractGenericDAO<T extends MeterEntity> implements Gener
     @Override
     public Optional<List<T>> getAll() {
         clazz = getClazz();
-        String tableName = getTableName();
 
         log.debug("Get all records for entity " + clazz.getSimpleName());
 
         try (Connection conn = sql2o.open()) {
-            List<T> entity = conn.createQuery(getSelectQuery(null)).executeAndFetch(clazz);
+            List<T> entity = conn.createQuery(getSelectQuery()).executeAndFetch(clazz);
 
             return Optional.ofNullable(entity);
         }
@@ -60,7 +59,6 @@ public abstract class AbstractGenericDAO<T extends MeterEntity> implements Gener
     @Override
     public Optional<T> findById(Long id) {
         clazz = getClazz();
-        String tableName = getTableName();
 
         log.debug("Find record " + clazz.getSimpleName() + "for id: " + id);
         try (Connection conn = sql2o.open()) {
@@ -102,6 +100,10 @@ public abstract class AbstractGenericDAO<T extends MeterEntity> implements Gener
                 "(quantity, read_date, unit_id, user_id) VALUES(:quantity, :read_date, :unit_id, :user_id)";
     }
 
+    private String getSelectQuery() {
+        return getSelectQuery("");
+    }
+
     private String getSelectQuery(String whereCondition) {
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT * FROM ")
@@ -121,7 +123,7 @@ public abstract class AbstractGenericDAO<T extends MeterEntity> implements Gener
                 " set quantity=:quantity, read_date=:read_date, unit_id=:unit_id, user_id=:user_id where id=:id";
     }
 
-    abstract Class<T> getClazz();
+    protected abstract Class<T> getClazz();
 
-    abstract String getTableName();
+    protected abstract String getTableName();
 }
