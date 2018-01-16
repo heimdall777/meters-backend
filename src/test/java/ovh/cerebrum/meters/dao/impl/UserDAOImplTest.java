@@ -12,7 +12,7 @@ import ovh.cerebrum.meters.domain.User;
 import ovh.cerebrum.meters.extension.MockitoExtension;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -130,7 +130,7 @@ class UserDAOImplTest {
         Long id = 1L;
         User user = new User(USERNAME, PASSWORD, EMAIL);
         when(query.addParameter("id", id)).thenReturn(query);
-        when(query.executeAndFetch(User.class)).thenReturn(Arrays.asList(user));
+        when(query.executeAndFetch(User.class)).thenReturn(Collections.singletonList(user));
 
         // When
         Optional<User> result = userDAO.findById(id);
