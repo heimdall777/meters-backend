@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Slf4j
-public abstract class AbstractGenericDAO<T extends MeterEntity> implements GenericDAO<T> {
+public abstract class AbstractMeterDAO<T extends MeterEntity> implements MeterDAO<T> {
 
     private Class<T> clazz;
 

@@ -1,11 +1,11 @@
 package ovh.cerebrum.meters.dao.impl;
 
-import ovh.cerebrum.meters.dao.AbstractGenericDAO;
+import ovh.cerebrum.meters.dao.AbstractMeterDAO;
 import ovh.cerebrum.meters.domain.Energy;
 
-public class EnergyDAOImpl extends AbstractGenericDAO<Energy> {
+public class EnergyDAOImpl extends AbstractMeterDAO<Energy> {
 
-    public static final String TABLE_NAME = "energy";
+    private static final String TABLE_NAME = "energy";
 
     @Override
     protected Class<Energy> getClazz() {
