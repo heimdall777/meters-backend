@@ -20,7 +20,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Optional<User> createUser(User user) {
+    public Optional<User> create(User user) {
         log.debug("Creating new user.");
 
         try (Connection conn = sql2o.beginTransaction()) {
@@ -44,7 +44,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Optional<List<User>> getAllUsers() {
+    public Optional<List<User>> getAll() {
         log.debug("Get all users.");
 
         try (Connection conn = sql2o.open()) {
@@ -55,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public Optional<User> findUserById(Long id) {
+    public Optional<User> findById(Long id) {
         try (Connection conn = sql2o.open()) {
             List<User> users = conn.createQuery("SELECT * FROM users WHERE id=:id")
                     .addParameter("id", id)
@@ -70,7 +70,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public void updateUser(User user) {
+    public void update(User user) {
         try (Connection conn = sql2o.beginTransaction()) {
            conn.createQuery("update users set username=:username, password=:password, email=:email where id=:id")
                    .addParameter("username", user.getUsername())

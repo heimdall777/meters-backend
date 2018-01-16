@@ -7,11 +7,11 @@ import java.util.Optional;
 
 public interface UserDAO {
 
-    Optional<User> createUser(User user);
+    Optional<User> create(User user);
 
-    Optional<List<User>> getAllUsers();
+    Optional<List<User>> getAll();
 
-    Optional<User> findUserById(Long id);
+    Optional<User> findById(Long id);
 
-    void updateUser(User user);
+    void update(User user);
 }

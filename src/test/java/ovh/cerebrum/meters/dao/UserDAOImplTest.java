@@ -58,7 +58,7 @@ class UserDAOImplTest {
         user.setUsername(USERNAME);
 
         // When
-        Optional<User> createdUser = userDAO.createUser(user);
+        Optional<User> createdUser = userDAO.create(user);
 
         // Then
         assertThat(createdUser).isPresent().hasValue(user);
@@ -72,7 +72,7 @@ class UserDAOImplTest {
         User user = new User(USERNAME, PASSWORD, EMAIL);
 
         // When
-        Optional<User> createdUser = userDAO.createUser(user);
+        Optional<User> createdUser = userDAO.create(user);
 
         // Then
         assertThat(createdUser).isEmpty();
@@ -84,7 +84,7 @@ class UserDAOImplTest {
         when(query.executeAndFetch(User.class)).thenReturn(null);
 
         // When
-        Optional<List<User>> results = userDAO.getAllUsers();
+        Optional<List<User>> results = userDAO.getAll();
 
         // Then
         assertThat(results).isEmpty();
@@ -100,7 +100,7 @@ class UserDAOImplTest {
         when(query.executeAndFetch(User.class)).thenReturn(users);
 
         // When
-        Optional<List<User>> results = userDAO.getAllUsers();
+        Optional<List<User>> results = userDAO.getAll();
 
         // Then
         assertThat(results).satisfies(u -> {
@@ -117,7 +117,7 @@ class UserDAOImplTest {
         when(query.executeAndFetch(User.class)).thenReturn(null);
 
         // When
-        Optional<User> result = userDAO.findUserById(id);
+        Optional<User> result = userDAO.findById(id);
 
         // Then
         assertThat(result).isEmpty();
@@ -132,7 +132,7 @@ class UserDAOImplTest {
         when(query.executeAndFetch(User.class)).thenReturn(Arrays.asList(user));
 
         // When
-        Optional<User> result = userDAO.findUserById(id);
+        Optional<User> result = userDAO.findById(id);
 
         // Then
         assertThat(result).satisfies(u -> {
@@ -147,7 +147,7 @@ class UserDAOImplTest {
         User user = new User(USERNAME, PASSWORD, EMAIL);
 
         // When
-        userDAO.updateUser(user);
+        userDAO.update(user);
 
         //Then
         verify(connection, times(1)).createQuery(anyString());
