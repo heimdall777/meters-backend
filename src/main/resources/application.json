@@ -1,7 +1,10 @@
 {
   "db": {
-    "url": "url",
-    "username": "user",
-    "password": "pass"
+    "url": "jdbc:postgresql://localhost:5432/home_meters",
+    "username": "home_meters",
+    "password": "home_meters"
+  },
+  "server": {
+    "port": 8080
   }
 }

@@ -23,6 +23,8 @@
         <assertj.version>3.9.0</assertj.version>
         <mockito.version>2.13.0</mockito.version>
         <lombok.version>1.16.20</lombok.version>
+        <sparkPac4j.version>2.2.0</sparkPac4j.version>
+        <pac4j.version>2.2.1</pac4j.version>
     </properties>
 
     <dependencies>
@@ -73,6 +75,23 @@
             <artifactId>gson</artifactId>
             <version>${gson.version}</version>
         </dependency>
+        <!-- SECURITY -->
+        <dependency>
+            <groupId>org.pac4j</groupId>
+            <artifactId>spark-pac4j</artifactId>
+            <version>${sparkPac4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.pac4j</groupId>
+            <artifactId>pac4j-jwt</artifactId>
+            <version>${pac4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.pac4j</groupId>
+            <artifactId>pac4j-sql</artifactId>
+            <version>${pac4j.version}</version>
+        </dependency>
+        <!-- SECURITY -->
         <!-- TEST -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
@@ -153,6 +172,7 @@
                 <configuration>
                     <includes>
                         <include>**/*Test.java</include>
+                        <include>**/*IT.java</include>
                     </includes>
                 </configuration>
                 <dependencies>
